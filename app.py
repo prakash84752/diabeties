@@ -1,12 +1,19 @@
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load the trained model
-with open("diabeties (1).pkl", "rb") as f:
+# Get absolute path of current directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Correct model file name (NO spaces, NO brackets)
+MODEL_PATH = os.path.join(BASE_DIR, "diabetes.pkl")
+
+# Load the trained model safely
+with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
 
 @app.route("/")
